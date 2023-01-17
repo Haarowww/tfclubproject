@@ -1,0 +1,57 @@
+Index: accounts/models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.db import models\nfrom django.contrib.auth.models import AbstractBaseUser, PermissionsMixin\nfrom django.utils.translation import gettext_lazy as _\nfrom .managers import CustomUserManager\n\n\n# Create your models here.\n\nclass CustomUser(AbstractBaseUser, PermissionsMixin):\n    username = models.CharField(_(\"username\"), max_length=150, blank=True, unique=True)\n    email = models.EmailField(_('email address'), max_length=200)\n    first_name = models.CharField(_(\"first name\"), max_length=150, blank=True)\n    last_name = models.CharField(_(\"last name\"), max_length=150, blank=True)\n    avatar = models.FileField(blank=True)\n    phone_number = models.CharField(max_length=12)\n    is_staff = models.BooleanField(default=False)\n    is_active = models.BooleanField(default=True)\n\n    USERNAME_FIELD = 'username'\n    REQUIRED_FIELDS = []\n\n    objects = CustomUserManager()\n\n    def has_perm(self, perm, obj=None):\n        \"Does the user have a specific permission?\"\n        # Simplest possible answer: Yes, always\n        return True\n\n    def __str__(self):\n        return self.username\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/accounts/models.py b/accounts/models.py
+--- a/accounts/models.py	(revision cc950f3b5a9ec6568e5623927800e1604ee62a47)
++++ b/accounts/models.py	(date 1668280711704)
+@@ -1,3 +1,4 @@
++from django.contrib.auth.validators import UnicodeUsernameValidator
+ from django.db import models
+ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+ from django.utils.translation import gettext_lazy as _
+@@ -7,8 +8,11 @@
+ # Create your models here.
+ 
+ class CustomUser(AbstractBaseUser, PermissionsMixin):
+-    username = models.CharField(_("username"), max_length=150, blank=True, unique=True)
+-    email = models.EmailField(_('email address'), max_length=200)
++    username_validator = UnicodeUsernameValidator()
++
++    username = models.CharField(_('username'), max_length=150, unique=True, validators=[username_validator],
++                                error_messages={"unique": _("The username already exists")})
++    email = models.EmailField(_('email address'), max_length=200, blank=True)
+     first_name = models.CharField(_("first name"), max_length=150, blank=True)
+     last_name = models.CharField(_("last name"), max_length=150, blank=True)
+     avatar = models.FileField(blank=True)
+Index: accounts/serializers.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.contrib.auth import authenticate\nfrom django.core.validators import validate_email, EmailValidator\nfrom django.db import IntegrityError\nfrom rest_framework.exceptions import ValidationError\n\nfrom accounts.models import CustomUser\nfrom rest_framework import serializers\nfrom rest_framework.serializers import ModelSerializer, Serializer\nimport re\n\n\nclass UserSerializer(ModelSerializer):\n    class Meta:\n        model = CustomUser\n        fields = ['username', 'first_name', 'last_name', 'email', 'avatar', 'phone_number', 'password']\n        extra_kwargs = {'email': {'validators': [EmailValidator, ]},\n                        }\n        read_only_fields = ('username',)\n\n    def validate_username(self, value):\n        customer = self.context['request'].user\n        if CustomUser.objects.exclude(pk=customer.pk).filter(username=value).exists():\n            raise serializers.ValidationError({\"username\": \"This username is already in use.\"})\n        return value\n\n    def validate(self, data):\n        password1 = data['password']\n        email = data['email']\n        phone_number = data['phone_number']\n        if 0 < len(password1) < 8:\n            raise serializers.ValidationError(\"This password is too short. It must contain at least 8 characters\")\n        if password1 == \"\":\n            raise serializers.ValidationError(\"This field is required\")\n        if email == \"\":\n            raise serializers.ValidationError(\"This field is required\")\n        try:\n            validate_email(email)\n        except ValidationError:\n            raise serializers.ValidationError(\"Enter a valid email address\")\n\n        if len(phone_number) != 12:\n            raise serializers.ValidationError(\"The phone has to be length of 12\")\n\n        format = \"^\\d{3}-\\d{3}-\\d{4}$\"\n        if not re.match(format, phone_number):\n            raise serializers.ValidationError(\"Phone number format should like xxx-xxx-xxxx\")\n\n        return data\n\n    def update(self, instance, validated_data):\n        if 'avatar' not in validated_data:\n            validated_data[\"avatar\"] = None\n        instance.set_password(validated_data['password'])\n        instance.first_name = validated_data['first_name']\n        instance.last_name = validated_data['last_name']\n        instance.email = validated_data['email']\n        instance.avatar = validated_data['avatar']\n        instance.phone_number = validated_data['phone_number']\n        instance.save()\n\n        return instance\n\n\nclass SignupSerializer(ModelSerializer):\n    password2 = serializers.CharField(required=True, max_length=50)\n\n    class Meta:\n        model = CustomUser\n        fields = ['username', 'first_name', 'last_name', 'email', 'avatar', 'phone_number', 'password', 'password2']\n\n    def validate(self, data):\n        username = data['username']\n        password1 = data['password']\n        password2 = data['password2']\n        email = data['email']\n        phone_number = data['phone_number']\n        if password1 != password2:\n            raise serializers.ValidationError(\"Password don't match\")\n        if 0 < len(password1) < 8:\n            raise serializers.ValidationError(\"This password is too short. It must contain at least 8 characters\")\n        if 0 < len(password2) < 8:\n            raise serializers.ValidationError(\"This password is too short. It must contain at least 8 characters\")\n        if password1 == \"\":\n            raise serializers.ValidationError(\"This field is required\")\n        if email == \"\":\n            raise serializers.ValidationError(\"This field is required\")\n        if username == \"\":\n            raise serializers.ValidationError(\"This field is required\")\n\n        try:\n            validate_email(email)\n        except ValidationError:\n            raise serializers.ValidationError(\"Enter a valid email address\")\n\n        if CustomUser.objects.filter(username=username).exists():\n            raise serializers.ValidationError(\"An email already exists\")\n\n        if len(phone_number) != 12:\n            raise serializers.ValidationError(\"The phone has to be length of 12\")\n\n        format = \"^\\d{3}-\\d{3}-\\d{4}$\"\n        if not re.match(format, phone_number):\n            raise serializers.ValidationError(\"Phone number format should like xxx-xxx-xxxx\")\n\n        return data\n\n    def create(self, data):\n        if 'avatar' not in data:\n            data[\"avatar\"] = None\n        customer = CustomUser.objects.create(\n            username=data[\"username\"],\n            password=data[\"password\"],\n            email=data['email'],\n            phone_number=data['phone_number'],\n            avatar=data[\"avatar\"],\n            first_name=data[\"first_name\"],\n            last_name=data[\"last_name\"]\n        )\n        customer.set_password(data['password'])\n        customer.save()\n\n        return customer\n\n\nclass LoginSerializer(ModelSerializer):\n    class Meta:\n        model = CustomUser\n        fields = ['username', 'password']\n        extra_kwargs = {'username': {'validators': []},\n                        }\n\n    def validate(self, data):\n        username = data['username']\n        password = data['password']\n        if password == \"\":\n            raise serializers.ValidationError(\"This field is required\")\n        if username == \"\":\n            raise serializers.ValidationError(\"This field is required\")\n\n        customer = authenticate(username=username, password=password)\n        if customer is None:\n            raise serializers.ValidationError(\"This customer did not sign up or password mismatch\")\n\n        data[\"customer\"] = customer\n        return data\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/accounts/serializers.py b/accounts/serializers.py
+--- a/accounts/serializers.py	(revision cc950f3b5a9ec6568e5623927800e1604ee62a47)
++++ b/accounts/serializers.py	(date 1668280715011)
+@@ -2,7 +2,7 @@
+ from django.core.validators import validate_email, EmailValidator
+ from django.db import IntegrityError
+ from rest_framework.exceptions import ValidationError
+-
++from django.utils.translation import gettext_lazy as _
+ from accounts.models import CustomUser
+ from rest_framework import serializers
+ from rest_framework.serializers import ModelSerializer, Serializer
+@@ -62,7 +62,7 @@
+ 
+ 
+ class SignupSerializer(ModelSerializer):
+-    password2 = serializers.CharField(required=True, max_length=50)
++    password2 = serializers.CharField(required=True, max_length=128)
+ 
+     class Meta:
+         model = CustomUser

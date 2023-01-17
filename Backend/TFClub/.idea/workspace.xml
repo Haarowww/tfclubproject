@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="93d8319e-1eda-496b-acb5-a3b225ebefd7" name="Changes" comment="typo fixed">
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/subscriptions/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/subscriptions/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/subscriptions/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/subscriptions/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/subscriptions/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/subscriptions/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/subscriptions/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/subscriptions/views.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2HQCJzpEIeaRJqndK9aF9IUhM9v" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/lewis/Desktop/group_9357/PB/TFClub&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="TFClub" type="Python.DjangoServer" factoryName="Django server">
+      <module name="TFClub" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93d8319e-1eda-496b-acb5-a3b225ebefd7" name="Changes" comment="" />
+      <created>1668207853883</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668207853883</updated>
+      <workItem from="1668207855646" duration="86669000" />
+      <workItem from="1668644534112" duration="41494000" />
+      <workItem from="1668795735766" duration="9359000" />
+      <workItem from="1668821985985" duration="5016000" />
+      <workItem from="1668919837509" duration="602000" />
+      <workItem from="1669327527024" duration="3777000" />
+      <workItem from="1669598890263" duration="16000" />
+      <workItem from="1669600104623" duration="51000" />
+      <workItem from="1669674534458" duration="1725000" />
+      <workItem from="1669863637325" duration="84000" />
+    </task>
+    <task id="LOCAL-00001" summary="add initial code">
+      <created>1668217595201</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668217595202</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add initial code">
+      <created>1668289451538</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1668289451539</updated>
+    </task>
+    <task id="LOCAL-00003" summary="edit sign up mistakes">
+      <created>1668290530800</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1668290530800</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add method: create studios">
+      <created>1668293023484</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1668293023485</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add method: create studios">
+      <created>1668293038863</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668293038863</updated>
+    </task>
+    <task id="LOCAL-00006" summary="register admin">
+      <created>1668293312118</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1668293312118</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Edit Studio Added">
+      <created>1668302175879</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1668302175879</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add Edit and Delete View Method">
+      <created>1668314852907</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1668314852907</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add Create, Edit, Delete Subscription Method, Create Subscription Model">
+      <created>1668474382952</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1668474382952</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Make changes in model">
+      <created>1668475029527</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1668475029527</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Make validation in model and serializer">
+      <created>1668475596180</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1668475596180</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add new models">
+      <created>1668481500067</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1668481500067</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Method Added: ChoosePlan">
+      <created>1668491949322</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1668491949323</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Finish Method, Make Payment Choice">
+      <created>1668548554943</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1668548554944</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Finish Method, Make Payment Choice">
+      <created>1668550526285</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1668550526286</updated>
+    </task>
+    <task id="LOCAL-00016" summary="admin panel validation">
+      <created>1668562953167</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1668562953168</updated>
+    </task>
+    <task id="LOCAL-00017" summary="create payment history and then show the user payment history">
+      <created>1668625764567</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1668625764568</updated>
+    </task>
+    <task id="LOCAL-00018" summary="make some adjustments in account model">
+      <created>1668643809526</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1668643809526</updated>
+    </task>
+    <task id="LOCAL-00019" summary="finish last method">
+      <created>1668675558805</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1668675558805</updated>
+    </task>
+    <task id="LOCAL-00020" summary="update these changed files">
+      <created>1668712662174</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1668712662175</updated>
+    </task>
+    <task id="LOCAL-00021" summary="final changes for subscriptions">
+      <created>1668720533369</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1668720533369</updated>
+    </task>
+    <task id="LOCAL-00022" summary="final final changes for subscriptions">
+      <created>1668725952668</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1668725952668</updated>
+    </task>
+    <task id="LOCAL-00023" summary="add new files: startup.sh and run.sh">
+      <created>1668803007781</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1668803007782</updated>
+    </task>
+    <task id="LOCAL-00024" summary="sorry for the type error, make adjustments">
+      <created>1668803264849</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1668803264849</updated>
+    </task>
+    <task id="LOCAL-00025" summary="requirements file">
+      <created>1668808813353</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1668808813353</updated>
+    </task>
+    <task id="LOCAL-00026" summary="update my shells">
+      <created>1668810276897</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1668810276897</updated>
+    </task>
+    <task id="LOCAL-00027" summary="update my shells">
+      <created>1668812277833</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1668812277833</updated>
+    </task>
+    <task id="LOCAL-00028" summary="update my shells">
+      <created>1668813673508</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1668813673508</updated>
+    </task>
+    <task id="LOCAL-00029" summary="final change for shell">
+      <created>1668822172960</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1668822172961</updated>
+    </task>
+    <task id="LOCAL-00030" summary="this changed">
+      <created>1668823512976</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1668823512976</updated>
+    </task>
+    <task id="LOCAL-00031" summary="change our models">
+      <created>1668824966760</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1668824966760</updated>
+    </task>
+    <task id="LOCAL-00032" summary="change our models">
+      <created>1668824976812</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1668824976812</updated>
+    </task>
+    <task id="LOCAL-00033" summary="typo fixed">
+      <created>1668826515563</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1668826515563</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="Richard202019Wang" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="Lewis Sun" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="Yifei" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="add method: create studios" />
+    <MESSAGE value="register admin" />
+    <MESSAGE value="Edit Studio Added" />
+    <MESSAGE value="Add Edit and Delete View Method" />
+    <MESSAGE value="Add Create, Edit, Delete Subscription Method, Create Subscription Model" />
+    <MESSAGE value="Make changes in model" />
+    <MESSAGE value="Make validation in model and serializer" />
+    <MESSAGE value="Add new models" />
+    <MESSAGE value="Method Added: ChoosePlan" />
+    <MESSAGE value="Finish Method, Make Payment Choice" />
+    <MESSAGE value="admin panel validation" />
+    <MESSAGE value="create payment history and then show the user payment history" />
+    <MESSAGE value="make some adjustments in account model" />
+    <MESSAGE value="finish last method" />
+    <MESSAGE value="update these changed files" />
+    <MESSAGE value="final changes for subscriptions" />
+    <MESSAGE value="final final changes for subscriptions" />
+    <MESSAGE value="add new files: startup.sh and run.sh" />
+    <MESSAGE value="sorry for the type error, make adjustments" />
+    <MESSAGE value="requirements file" />
+    <MESSAGE value="update my shells" />
+    <MESSAGE value="final change for shell" />
+    <MESSAGE value="this changed" />
+    <MESSAGE value="change our models" />
+    <MESSAGE value="typo fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="typo fixed" />
+  </component>
+</project>

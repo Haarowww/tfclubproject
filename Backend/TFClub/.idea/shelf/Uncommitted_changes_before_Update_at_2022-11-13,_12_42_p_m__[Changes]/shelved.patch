@@ -1,0 +1,161 @@
+Index: studios/urls.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.urls import path\nfrom rest_framework_simplejwt.views import (\n    TokenObtainPairView,\n    TokenRefreshView,\n)\nfrom studios.views import CreateStudioView, EditStudioView, DeleteStudioView\n\napp_names = 'studios'\n\nurlpatterns = [\n    path('create/', CreateStudioView.as_view()),\n    path('edit/<int:pk>/', EditStudioView.as_view()),\n    path('delete/<int:pk>/', DeleteStudioView.as_view()),\n    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),\n    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),\n]
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/studios/urls.py b/studios/urls.py
+--- a/studios/urls.py	(revision 0ac8e12927b7e0164401fd454fa1955bf7b43afd)
++++ b/studios/urls.py	(date 1668354816735)
+@@ -3,7 +3,7 @@
+     TokenObtainPairView,
+     TokenRefreshView,
+ )
+-from studios.views import CreateStudioView, EditStudioView, DeleteStudioView
++from studios.views import CreateStudioView, EditStudioView, DeleteStudioView, NearestStudioView, PickStudioView
+ 
+ app_names = 'studios'
+ 
+@@ -11,6 +11,8 @@
+     path('create/', CreateStudioView.as_view()),
+     path('edit/<int:pk>/', EditStudioView.as_view()),
+     path('delete/<int:pk>/', DeleteStudioView.as_view()),
++    path('distance/', NearestStudioView.as_view()),
++    path('click/<int:pk>/', PickStudioView.as_view()),
+     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+ ]
+\ No newline at end of file
+Index: studios/serializers.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import re\n\nfrom django.contrib.auth import authenticate\nfrom django.contrib.auth.hashers import make_password\nfrom django.core.validators import validate_email, EmailValidator\nfrom django.db import IntegrityError\nfrom rest_framework.exceptions import ValidationError\n\nfrom studios.models import Studio\nfrom rest_framework import serializers\nfrom rest_framework.serializers import ModelSerializer, Serializer\n\n\nclass StudioSerializer(ModelSerializer):\n    class Meta:\n        model = Studio\n        fields = ['name', 'address', 'longitude', 'latitude', 'postal_code', 'phone_number',\n                  'images', 'type', 'quantity']\n\n    def validate_name(self, value):\n        if value == \"\":\n            raise serializers.ValidationError(\"This field is needed\")\n        return value\n\n    def validate_address(self, value):\n        if value == \"\":\n            raise serializers.ValidationError(\"This field is required\")\n        return value\n\n    def validate_phone_number(self, value):\n        if value == \"\":\n            raise serializers.ValidationError(\"This field is required\")\n        elif len(value) != 12:\n            raise serializers.ValidationError(\"The phone has to be length of 12\")\n        else:\n            format = \"^\\d{3}-\\d{3}-\\d{4}$\"\n            if not re.match(format, value):\n                raise serializers.ValidationError(\"Phone number format should like xxx-xxx-xxxx\")\n\n        return value\n\n    # def validate_geographical_location(self, value):\n    #     if value == \"\":\n    #         raise serializers.ValidationError('This field may not be blank.')\n    def __init__(self, *args, **kwargs):\n        super().__init__(*args, **kwargs)\n        self.fields['postal_code'].required = False\n        self.fields['images'].required = False\n        self.fields['type'].required = False\n        self.fields['quantity'].required = False\n\n\nclass DeleteStudioSerializer(ModelSerializer):\n    class Meta:\n        model = Studio\n        field = '__all__'\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/studios/serializers.py b/studios/serializers.py
+--- a/studios/serializers.py	(revision 0ac8e12927b7e0164401fd454fa1955bf7b43afd)
++++ b/studios/serializers.py	(date 1668361090985)
+@@ -17,6 +17,20 @@
+         fields = ['name', 'address', 'longitude', 'latitude', 'postal_code', 'phone_number',
+                   'images', 'type', 'quantity']
+ 
++    def validate_longitude(self, value):
++        if value == "":
++            raise serializers.ValidationError("This field is required")
++        elif float(value) > 180 or float(value) < 0:
++            raise serializers.ValidationError("Enter a correct longitude value")
++        return value
++
++    def validate_latitude(self, value):
++        if value == "":
++            raise serializers.ValidationError("This field is required")
++        elif float(value) > 90 or float(value) < 0:
++            raise serializers.ValidationError("Enter a correct latitude value")
++        return value
++
+     def validate_name(self, value):
+         if value == "":
+             raise serializers.ValidationError("This field is needed")
+@@ -39,9 +53,13 @@
+ 
+         return value
+ 
+-    # def validate_geographical_location(self, value):
+-    #     if value == "":
+-    #         raise serializers.ValidationError('This field may not be blank.')
++    def validate_postal_code(self, value):
++        format = "^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$"
++        if not re.match(format, value):
++            raise serializers.ValidationError("Postal code format should like ANA NAN,"
++                                              " where 'A' represents an alphabetic character"
++                                              " and 'N' represents a numeric character")
++
+     def __init__(self, *args, **kwargs):
+         super().__init__(*args, **kwargs)
+         self.fields['postal_code'].required = False
+@@ -54,3 +72,31 @@
+     class Meta:
+         model = Studio
+         field = '__all__'
++
++
++class UserNearestStudio(ModelSerializer):
++    class Meta:
++        model = Studio
++        fields = ['longitude', 'latitude']
++
++    def validate(self, data):
++        longitude = data['longitude']
++        latitude = data['latitude']
++        if longitude == "":
++            raise serializers.ValidationError("This field is required")
++        elif float(longitude) > 180 or float(longitude) < 0:
++            raise serializers.ValidationError("Enter a correct longitude value")
++        if latitude == "":
++            raise serializers.ValidationError("This field is required")
++        elif float(latitude) > 90 or float(latitude) < 0:
++            raise serializers.ValidationError("Enter a correct latitude value")
++
++        return data
++
++
++class PickStudio(ModelSerializer):
++    direction = serializers.URLField()
++    class Meta:
++        model = Studio
++        fields = ['id', 'name', 'address', 'longitude', 'latitude', 'postal_code', 'phone_number',
++                  'images', 'type', 'quantity']
+Index: studios/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.shortcuts import render\nfrom rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView, DestroyAPIView, RetrieveAPIView\nfrom studios.serializers import StudioSerializer, DeleteStudioSerializer\nfrom rest_framework.permissions import IsAuthenticated\nfrom studios.models import Studio\n\n\n# Create your views here.\nclass CreateStudioView(CreateAPIView):\n    permission_classes = [IsAuthenticated, ]\n    serializer_class = StudioSerializer\n\n\nclass EditStudioView(RetrieveUpdateAPIView):\n    permission_classes = [IsAuthenticated, ]\n    serializer_class = StudioSerializer\n    queryset = Studio.objects.all()\n\n\nclass DeleteStudioView(DestroyAPIView):\n    permission_classes = [IsAuthenticated, ]\n    serializer_class = DeleteStudioSerializer\n    queryset = Studio.objects.all()\n\n\nclass StudioView(RetrieveAPIView):\n    pass\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/studios/views.py b/studios/views.py
+--- a/studios/views.py	(revision 0ac8e12927b7e0164401fd454fa1955bf7b43afd)
++++ b/studios/views.py	(date 1668354778089)
+@@ -1,8 +1,10 @@
+ from django.shortcuts import render
+ from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView, DestroyAPIView, RetrieveAPIView
+-from studios.serializers import StudioSerializer, DeleteStudioSerializer
++from studios.serializers import StudioSerializer, DeleteStudioSerializer, UserNearestStudio, PickStudio
+ from rest_framework.permissions import IsAuthenticated
+ from studios.models import Studio
++from math import *
++from rest_framework.response import Response
+ 
+ 
+ # Create your views here.
+@@ -23,5 +25,27 @@
+     queryset = Studio.objects.all()
+ 
+ 
+-class StudioView(RetrieveAPIView):
+-    pass
++class NearestStudioView(CreateAPIView):
++    serializer_class = UserNearestStudio
++    queryset = Studio.objects.all()
++
++    def post(self, request, *args, **kwargs):
++        user = self.get_serializer(data=request.data)
++        user.is_valid(raise_exception=True)
++        studios = Studio.objects.all()
++        s = {}
++        for studio in studios:
++            acc_lo = studio.longtitude
++            acc_la = studio.latitude
++            distance = 2 * abs(asin(abs(sqrt(abs(sin((user.data["latitude"] - acc_la) / 2) ** 2
++                                             + cos(user.data["latitude"]) * cos(acc_la)
++                                             * sin((user.data["longitude"] - acc_lo) / 2) ** 2))))) * 6378.137
++            s[studio.id] = distance
++        result = sorted(s.items(), key=lambda x: x[1], reverse=False)
++
++        return Response(result)
++
++
++class PickStudioView(RetrieveAPIView):
++    serializer_class = PickStudio
++    queryset = Studio.objects.all()
